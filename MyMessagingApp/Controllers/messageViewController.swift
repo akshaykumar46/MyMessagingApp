@@ -14,8 +14,9 @@ class messageViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-
-    @IBOutlet weak var messageTextField: UITextView!
+    @IBOutlet weak var messageTextField: UITextField!
+    
+//    @IBOutlet weak var messageTextField: UITextView!
     
     let db = Firestore.firestore()
     
