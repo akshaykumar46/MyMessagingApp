@@ -25,7 +25,9 @@ class messageViewController: UIViewController {
         
         
         
-        messageTextField.layer.cornerRadius=20
+//        messageTextField.layer.cornerRadius=10.0
+        messageTextField.frame=CGRect(x: messageTextField.frame.origin.x, y: messageTextField.frame.origin.y, width: messageTextField.frame.size.width, height: 100)
+
         tableView.dataSource=self
         loadMessages()
         title="MyMessageApp"
@@ -35,7 +37,9 @@ class messageViewController: UIViewController {
     
     func loadMessages(){
         
-        db.collection(K.Fstore.collectionName).order(by: K.Fstore.dateFieldName).addSnapshotListener{ QuerySnapshot, error in
+        db.collection(K.Fstore.collectionName)
+            .order(by: K.Fstore.dateFieldName)
+            .addSnapshotListener{ QuerySnapshot, error in
             self.mesaages=[]
             if let e = error {
                 print(e)
