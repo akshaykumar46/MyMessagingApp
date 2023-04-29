@@ -11,10 +11,13 @@ import FirebaseCore
 
 class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var registerButtonLabel: UIButton!
     @IBOutlet weak var usernameField: UITextField!
     
     @IBOutlet weak var passwordField: UITextField!
-    
+    override func viewDidLoad() {
+        registerButtonLabel.layer.cornerRadius=10
+    }
 
     @IBAction func RegisterButton(_ sender: UIButton) {
         if let email=usernameField.text,let password=passwordField.text{

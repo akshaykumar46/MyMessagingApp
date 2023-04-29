@@ -25,12 +25,15 @@ class messageViewController: UIViewController {
         
         
         
+        
 //        messageTextField.layer.cornerRadius=10.0
         messageTextField.frame=CGRect(x: messageTextField.frame.origin.x, y: messageTextField.frame.origin.y, width: messageTextField.frame.size.width, height: 100)
+        messageTextField.layer.cornerRadius=10
 
         tableView.dataSource=self
         loadMessages()
-        title="MyMessageApp"
+        title=K.title
+        
         navigationItem.hidesBackButton=true
         tableView.register(UINib(nibName: K.NibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
     }

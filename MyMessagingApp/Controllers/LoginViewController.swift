@@ -11,9 +11,13 @@ import FirebaseCore
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var loginButtonLabel: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    override func viewDidLoad() {
+        loginButtonLabel.layer.cornerRadius=10
+    }
     @IBAction func LoginButton(_ sender: UIButton) {
         if let email=emailTextField.text, let password=passwordTextField.text{
             Auth.auth().signIn(withEmail: email, password: password) {authResult, error in

@@ -11,7 +11,7 @@ struct K{
     static let loginSegue="loginToChatSegue"
     static let cellIdentifier="messageCell"
     static let NibName="MessageCell" //name of the message cell swift file
-    
+    static let title = "Appy Aapy"
     struct Fstore{
         static let collectionName = "messages"
         static let senderFieldName = "sender"

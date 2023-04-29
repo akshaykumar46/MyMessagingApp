@@ -17,7 +17,9 @@ class MessageCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        MessageBubble.layer.cornerRadius=15
+        leftImageView.layer.cornerRadius=20
+        rightImageView.layer.cornerRadius=20
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

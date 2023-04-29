@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "32A512B2-1F7C-420F-9631-AA06EF80BFF5"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMessagingApp/Controllers/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "ViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4 - da81fea27f9f7c85"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMessagingApp.ViewController.registerButtonLabel.getter : Swift.Optional&lt;__C.UIButton&gt;"
+                  moduleName = "MyMessagingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshaykumar/Documents/iOS%20Dev/MyMessagingApp/MyMessagingApp/Controllers/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4 - 5f4cdd70b05ac91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMessagingApp.ViewController.registerButtonLabel.setter : Swift.Optional&lt;__C.UIButton&gt;"
+                  moduleName = "MyMessagingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshaykumar/Documents/iOS%20Dev/MyMessagingApp/MyMessagingApp/Controllers/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4 - 235f4f850be6a086"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMessagingApp.ViewController.registerButtonLabel.modify : Swift.Optional&lt;__C.UIButton&gt;"
+                  moduleName = "MyMessagingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshaykumar/Documents/iOS%20Dev/MyMessagingApp/MyMessagingApp/Controllers/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4 - dedf506847b63b7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMessagingApp.ViewController.registerButtonLabel.modify : Swift.Optional&lt;__C.UIButton&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "MyMessagingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshaykumar/Documents/iOS%20Dev/MyMessagingApp/MyMessagingApp/Controllers/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4 - 199b68137cf024f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMessagingApp.ViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; MyMessagingApp.ViewController"
+                  moduleName = "MyMessagingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshaykumar/Documents/iOS%20Dev/MyMessagingApp/MyMessagingApp/Controllers/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "AA77EA94-CEF9-4A51-ACA3-0A9696E0CDB4 - cf07dfd34527fe36"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMessagingApp.ViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;MyMessagingApp.ViewController&gt;"
+                  moduleName = "MyMessagingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshaykumar/Documents/iOS%20Dev/MyMessagingApp/MyMessagingApp/Controllers/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
