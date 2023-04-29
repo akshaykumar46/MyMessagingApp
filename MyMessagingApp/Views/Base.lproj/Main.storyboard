@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ydt-jn-5zR">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -49,7 +50,7 @@
                                             <fontDescription key="titleFontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="30"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="bDv-1B-Gda" kind="show" identifier="" id="BI9-4S-c9e"/>
+                                            <segue destination="bDv-1B-Gda" kind="show" id="NLK-aM-dXX"/>
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="fzJ-Sj-lC2">
@@ -179,17 +180,17 @@
                         <outlet property="emailTextField" destination="Jjb-Yu-Gr7" id="wbK-Gt-Ojw"/>
                         <outlet property="loginButtonLabel" destination="nix-3C-g2o" id="ulk-Oc-WrD"/>
                         <outlet property="passwordTextField" destination="qDj-ar-I4l" id="yif-AR-q4S"/>
-                        <segue destination="QTK-5g-ddd" kind="show" identifier="loginToChatSegue" id="wg3-3i-hfC"/>
+                        <segue destination="jXW-tQ-lRT" kind="show" identifier="loginToChatSegue" id="Xmg-1D-r5H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fWi-05-jcG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1842" y="330"/>
         </scene>
-        <!--View Controller-->
+        <!--Chat View Controller-->
         <scene sceneID="AQX-Yt-pxe">
             <objects>
-                <viewController id="jXW-tQ-lRT" sceneMemberID="viewController">
+                <viewController id="jXW-tQ-lRT" customClass="ChatViewController" customModule="MyMessagingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Eh6-iJ-Tde">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -201,13 +202,29 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBw-Jr-MEk">
+                                        <rect key="frame" x="255" y="722" width="100" height="60"/>
+                                        <color key="backgroundColor" red="0.4588235021" green="0.89019608500000003" blue="0.61176472900000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="qTi-mk-2ny"/>
+                                            <constraint firstAttribute="height" constant="60" id="w4k-aY-gBL"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="New Chat"/>
+                                        <connections>
+                                            <action selector="startNewChat:" destination="jXW-tQ-lRT" eventType="touchUpInside" id="lTh-13-IJJ"/>
+                                            <segue destination="SVl-ig-FAf" kind="show" identifier="toUsersListSegue" id="Ddz-17-ZcC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="shU-yd-eaL" secondAttribute="bottom" id="FdL-2G-VnL"/>
-                                    <constraint firstAttribute="trailing" secondItem="shU-yd-eaL" secondAttribute="trailing" id="GTO-b0-Am3"/>
-                                    <constraint firstItem="shU-yd-eaL" firstAttribute="leading" secondItem="5ij-ae-fgH" secondAttribute="leading" id="rLr-Gy-rwq"/>
-                                    <constraint firstItem="shU-yd-eaL" firstAttribute="top" secondItem="5ij-ae-fgH" secondAttribute="top" id="xKl-VF-e2l"/>
+                                    <constraint firstAttribute="trailing" secondItem="shU-yd-eaL" secondAttribute="trailing" id="HPi-Be-hy4"/>
+                                    <constraint firstAttribute="trailing" secondItem="OBw-Jr-MEk" secondAttribute="trailing" constant="20" id="LAJ-TF-iQ9"/>
+                                    <constraint firstAttribute="bottom" secondItem="OBw-Jr-MEk" secondAttribute="bottom" constant="30" id="Lve-0h-9pa"/>
+                                    <constraint firstItem="shU-yd-eaL" firstAttribute="top" secondItem="5ij-ae-fgH" secondAttribute="top" id="e3X-fN-btJ"/>
+                                    <constraint firstItem="shU-yd-eaL" firstAttribute="leading" secondItem="5ij-ae-fgH" secondAttribute="leading" id="poA-oH-Nt2"/>
+                                    <constraint firstAttribute="bottom" secondItem="shU-yd-eaL" secondAttribute="bottom" id="prw-ty-dpQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -220,10 +237,59 @@
                             <constraint firstAttribute="bottom" secondItem="5ij-ae-fgH" secondAttribute="bottom" id="xPg-oZ-tzB"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="17p-CS-7NF"/>
+                    <connections>
+                        <outlet property="newChatButton" destination="OBw-Jr-MEk" id="oXP-QY-8La"/>
+                        <outlet property="tableView" destination="shU-yd-eaL" id="MBD-AS-Jzm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cD1-b6-oUG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2775.1999999999998" y="631.0344827586207"/>
+            <point key="canvasLocation" x="3190" y="-191"/>
+        </scene>
+        <!--New Chat View Controller-->
+        <scene sceneID="0CK-F7-pa7">
+            <objects>
+                <viewController id="SVl-ig-FAf" customClass="NewChatViewController" customModule="MyMessagingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4rk-bD-l8h">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9f2-QL-8oY">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cJr-ou-nks">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="cJr-ou-nks" firstAttribute="top" secondItem="9f2-QL-8oY" secondAttribute="top" id="Adm-If-Snr"/>
+                                    <constraint firstAttribute="trailing" secondItem="cJr-ou-nks" secondAttribute="trailing" id="BPx-JQ-9UQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="cJr-ou-nks" secondAttribute="bottom" id="bx0-1J-ufL"/>
+                                    <constraint firstItem="cJr-ou-nks" firstAttribute="leading" secondItem="9f2-QL-8oY" secondAttribute="leading" id="uq7-Ib-ESU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fs8-ZC-T4h"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9f2-QL-8oY" firstAttribute="trailing" secondItem="fs8-ZC-T4h" secondAttribute="trailing" id="Nqp-jY-2eK"/>
+                            <constraint firstItem="9f2-QL-8oY" firstAttribute="top" secondItem="4rk-bD-l8h" secondAttribute="top" id="coX-AW-0VU"/>
+                            <constraint firstAttribute="bottom" secondItem="9f2-QL-8oY" secondAttribute="bottom" id="eDk-Lc-Tva"/>
+                            <constraint firstItem="9f2-QL-8oY" firstAttribute="leading" secondItem="fs8-ZC-T4h" secondAttribute="leading" id="kXz-EP-p2d"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uMO-iW-AKl"/>
+                    <connections>
+                        <outlet property="tableView" destination="cJr-ou-nks" id="YyJ-dj-fMg"/>
+                        <segue destination="QTK-5g-ddd" kind="show" identifier="newChatSegue" id="jJj-hc-tvq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J4v-dn-dYf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4170" y="-191"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="h8z-Gp-qg6">
@@ -311,7 +377,7 @@
                         <outlet property="passwordField" destination="GAg-JE-xIl" id="sqs-zS-Obv"/>
                         <outlet property="registerButtonLabel" destination="7HB-PJ-cg7" id="KSE-2C-1Zq"/>
                         <outlet property="usernameField" destination="2Rd-ca-Hmm" id="zdF-uf-S8H"/>
-                        <segue destination="QTK-5g-ddd" kind="show" identifier="registerToChatSegue" id="bqL-ab-aIG"/>
+                        <segue destination="jXW-tQ-lRT" kind="show" identifier="registerToChatSegue" id="jH8-Od-lFK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1zp-p7-eTf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -366,7 +432,7 @@
                                                         <rect key="frame" x="249" y="8" width="106" height="34.333333333333336"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain">
+                                                        <buttonConfiguration key="configuration" style="plain" title="send">
                                                             <imageReference key="image" image="paperplane.fill" catalog="system" symbolScale="large"/>
                                                         </buttonConfiguration>
                                                         <connections>
@@ -421,7 +487,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dz0-n9-jz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2829.5999999999999" y="-28.817733990147783"/>
+            <point key="canvasLocation" x="5190" y="-191"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ifU-hG-ArW">
@@ -443,7 +509,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wg3-3i-hfC"/>
+        <segue reference="jH8-Od-lFK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="app-icon" width="203" height="136.33332824707031"/>

@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 class messageViewController: UIViewController {
-    
+    var receiver:String?
     @IBOutlet weak var tableView: UITableView!
     
 
@@ -32,14 +32,13 @@ class messageViewController: UIViewController {
 
         tableView.dataSource=self
         loadMessages()
-        title=K.title
+        title=receiver!
         
-        navigationItem.hidesBackButton=true
+//        navigationItem.hidesBackButton=true
         tableView.register(UINib(nibName: K.NibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
     }
     
     func loadMessages(){
-        
         db.collection(K.Fstore.collectionName)
             .order(by: K.Fstore.dateFieldName)
             .addSnapshotListener{ QuerySnapshot, error in

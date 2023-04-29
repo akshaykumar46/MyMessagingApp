@@ -7,21 +7,30 @@
 
 import UIKit
 
-class ChatCell: UITableViewCell {
+class ChatCell: UITableViewCell{
 
     @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var profileName: UILabel!
+ 
+    @IBOutlet weak var profileName: UIButton!
+    weak var viewController: UIViewController?
     
-    
+    @IBAction func profileSelected(_ sender: UIButton) {
+        if let viewController = viewController {
+            viewController.performSegue(withIdentifier: K.newChatToChatSegue, sender: self)
+                }
+        
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePhoto.layer.cornerRadius=25
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        
     }
+    
+
     
 }

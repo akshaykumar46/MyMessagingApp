@@ -7,6 +7,9 @@
 
 import Foundation
 struct K{
+    static let newChatToChatSegue="newChatSegue"
+    static let users = "Users"
+    static let usernames="usernames"
     static let registerSegue="registerToChatSegue"
     static let loginSegue="loginToChatSegue"
     static let cellIdentifier="messageCell"
@@ -17,5 +20,10 @@ struct K{
         static let senderFieldName = "sender"
         static let msgFieldName = "message_sent"
         static let dateFieldName = "date"
+    }
+    struct chats{
+        static let NibName="ChatCell"
+        static let cellIdentifier="chatCell"
+        static let chatsCollection = "chats"
     }
 }
