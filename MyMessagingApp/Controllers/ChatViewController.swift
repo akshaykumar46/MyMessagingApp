@@ -15,7 +15,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newChatButton: UIButton!
     
-//    let db = Firestore.firestore()
+    let db = Firestore.firestore()
     
     var chats:[Chats] = []
     
@@ -23,6 +23,21 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         newChatButton.layer.cornerRadius=7
         navigationItem.hidesBackButton=true
+        
+//        let dataRef=db.collection(K.Fstore.dataCollectionName)
+//        if let user=Auth.auth().currentUser?.email{
+//            dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
+//                if let e=error{
+//                    print(e.localizedDescription)
+//                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
+//                    let document=documents[0]
+//                    self.db.collection(K.Fstore.dataCollectionName).document(document.documentID).collection(K.Fstore.ChatsCollectionName)
+//                }else{
+//                    print("some other error")
+//                }
+//            }
+//
+//        }
         
 //        tableView.dataSource=self
 //

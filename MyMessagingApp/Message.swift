@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Message{
-    let sender : String
-    let body : String
+struct Message {
+    let sender: String
+    let content: String
+    let timestamp: TimeInterval
 }

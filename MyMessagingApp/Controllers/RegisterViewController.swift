@@ -30,8 +30,9 @@ class RegisterViewController: UIViewController {
                     print(e.localizedDescription)
 //                    print("error in registering")
                 }else{
+                    self.db.collection(K.Fstore.dataCollectionName).addDocument(data: ["username":email])
+                    
                     self.db.collection(K.users).addDocument(data: [K.usernames:email])
-                    self.db.collection(K.users)
                     self.performSegue(withIdentifier: K.registerSegue, sender: self)
                 }
             }

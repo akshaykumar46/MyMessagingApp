@@ -16,7 +16,9 @@ struct K{
     static let NibName="MessageCell" //name of the message cell swift file
     static let title = "Appy Aapy"
     struct Fstore{
-        static let collectionName = "messages"
+        static let dataCollectionName = "data"
+        static let ChatsCollectionName = "Chats"
+        static let messagesCollectionName = "messages"
         static let senderFieldName = "sender"
         static let msgFieldName = "message_sent"
         static let dateFieldName = "date"

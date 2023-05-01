@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3774D1277AF4AD9269875C53 /* Pods_MyMessagingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93169624066268E682A03E61 /* Pods_MyMessagingApp.framework */; };
 		D02EC6EE29E21F4200100710 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02EC6ED29E21F4200100710 /* RegisterViewController.swift */; };
 		D02EC6F229E22AD600100710 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02EC6F129E22AD600100710 /* LoginViewController.swift */; };
 		D0532D4829E5575200D59676 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0532D4629E5575200D59676 /* MessageCell.swift */; };
@@ -26,8 +25,24 @@
 		D07304F729FCEEA300F4AD75 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07304F529FCEEA300F4AD75 /* ChatCell.swift */; };
 		D07304F829FCEEA300F4AD75 /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D07304F629FCEEA300F4AD75 /* ChatCell.xib */; };
 		D07304FB29FD164500F4AD75 /* NewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07304FA29FD164500F4AD75 /* NewChatViewController.swift */; };
+		D082101B29FEF6BB00B4921D /* Pods_MyMessagingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93169624066268E682A03E61 /* Pods_MyMessagingApp.framework */; };
+		D082101C29FEF6BB00B4921D /* Pods_MyMessagingApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93169624066268E682A03E61 /* Pods_MyMessagingApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0A81D5F29E3484300BA7EDB /* messageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A81D5E29E3484200BA7EDB /* messageViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D082101D29FEF6BB00B4921D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D082101C29FEF6BB00B4921D /* Pods_MyMessagingApp.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		04B919AA760694B82F179363 /* Pods-MyMessagingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMessagingApp.debug.xcconfig"; path = "Target Support Files/Pods-MyMessagingApp/Pods-MyMessagingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -62,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3774D1277AF4AD9269875C53 /* Pods_MyMessagingApp.framework in Frameworks */,
+				D082101B29FEF6BB00B4921D /* Pods_MyMessagingApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +175,7 @@
 				D060AE1829D7727200D4748B /* Frameworks */,
 				D060AE1929D7727200D4748B /* Resources */,
 				82BDAB87548102B13D9061C9 /* [CP] Embed Pods Frameworks */,
+				D082101D29FEF6BB00B4921D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

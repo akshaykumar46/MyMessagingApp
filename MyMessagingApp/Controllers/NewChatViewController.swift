@@ -19,14 +19,22 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
     let db = Firestore.firestore()
     var users:[Chats]=[]
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadUsers()
+        
+                
+        
         title="Start a new Chat"
         tableView.dataSource=self
         tableView.delegate=self
         tableView.register(UINib(nibName: K.chats.NibName, bundle: nil), forCellReuseIdentifier: K.chats.cellIdentifier)
+        
+        
     }
     func loadUsers(){
         users=[]
@@ -61,7 +69,7 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
                 if let destinationVC = segue.destination as? messageViewController {
                     let buttonName = sender as? ChatCell
                         destinationVC.receiver=buttonName?.profileName.titleLabel?.text!
-                        
+                    
                 }
             }
         }
