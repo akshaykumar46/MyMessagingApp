@@ -30,11 +30,7 @@ class messageViewController: UIViewController {
         let receiverChatId:String
         let msgDocid:String
     }
-    
-    
-    
-    
-    
+
     var mesaages:[Message]=[]
     
     override func viewDidLoad() {
@@ -150,53 +146,29 @@ class messageViewController: UIViewController {
 
     // Add a new message to a conversation in Firestore
     func addMessage(userDetails: userDetails, sender: String, content: String, timestamp: TimeInterval, completion: @escaping (Message?, Error?) -> Void) {
-        // Create a reference to the conversation document
-        let msgDocRef = db.collection(K.Fstore.dataCollectionName).document(userDetails.userDataId).collection(K.Fstore.ChatsCollectionName).document(userDetails.receiverChatId).collection(K.Fstore.messagesCollectionName).document(userDetails.msgDocid)
 
         let msgData: [String: Any] = [
             "sender": sender,
             "content": content,
             "timestamp": timestamp
         ]
+        let msgRef=db.collection(K.Fstore.dataCollectionName)
+            .document(userDetails.userDataId)
+            .collection(K.Fstore.ChatsCollectionName)
+            .document(userDetails.receiverChatId)
 
-        let msgRef=self.db.collection(K.Fstore.dataCollectionName).document(userDetails.userDataId).collection(K.Fstore.ChatsCollectionName).document(userDetails.receiverChatId)
-
-        msgRef.collection(K.Fstore.messagesCollectionName).getDocuments { (querySnapshot, error) in
+        msgRef.collection(K.Fstore.messagesCollectionName)
+            .addDocument(data: msgData){ error in
             if let error = error {
-                print("Error checking collection existence: \(error.localizedDescription)")
+                print("Error in saving msg: \(error.localizedDescription)")
+                completion(nil, error)
             } else {
-                if querySnapshot!.isEmpty {
-                    //                                        print("Collection does not exist")
-                    let msgDocRef=msgRef.collection(K.Fstore.messagesCollectionName).document()
-                    msgDocRef.setData(msgData) { error in
-                        if let error = error {
-                            completion(nil, error)
-                        } else {
-                            // Retrieve the message ID
-                            //                            let messageId = msgDocRef.documentID
-                            let message = Message(sender: sender, content: content, timestamp: timestamp)
-                            completion(message, nil)
-                        }
-                        
-                    }
-                    
-                } else {
-//                        print("Collection exists")
-//                    if let documents = querySnapshot?.documents{
-//                        let details=userDetails(userDataId: userDocID, receiverChatId: chatID, msgDocid: documents[0].documentID)
-//                        completion(details,nil)
-                    msgRef.collection(K.Fstore.messagesCollectionName).addDocument(data: msgData){ error in
-                        if let error = error {
-                            print("Error in saving msg: \(error.localizedDescription)")
-                        } else {
-                            print("Msg saved successfully")
-                        }
-                    }
-                    let message = Message(sender: sender, content: content, timestamp: timestamp)
-                    completion(message, nil)
-                    }
-                }
+                print("Msg saved successfully")
+                let message = Message(sender: sender, content: content, timestamp: timestamp)
+                completion(message, nil)
             }
+        }
+  
         }
 
  
@@ -247,7 +219,7 @@ class messageViewController: UIViewController {
                                 print("Error adding message: \(error.localizedDescription)")
                             } else if let message = message {
                                 print("Message added successfully! ")
-                                
+
                             }
                         }
                     }
