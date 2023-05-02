@@ -44,7 +44,14 @@ class messageViewController: UIViewController {
    
                 }
             }
-       
+        self.setupConversationForReceiver(){ userDetails, error in
+            if let error = error {
+                print("Error creating conversation: \(error.localizedDescription)")
+            } else if let userDetail = userDetails {
+                print("Conversation created successfully!")
+
+            }
+        }
         messageTextField.frame=CGRect(x: messageTextField.frame.origin.x, y: messageTextField.frame.origin.y, width: messageTextField.frame.size.width, height: 100)
         messageTextField.layer.cornerRadius=10
 
@@ -108,6 +115,57 @@ class messageViewController: UIViewController {
         }
     }
     
+    func setupConversationForReceiver(completion: @escaping (userDetails?, Error?) -> Void){
+       
+        let dataRef=db.collection(K.Fstore.dataCollectionName)
+        if let user=Auth.auth().currentUser?.email{
+            dataRef.whereField("username", isEqualTo: receiver!).getDocuments {(querySnapshot, error) in
+                if let e=error{
+                    print(e.localizedDescription)
+                    completion(nil, error)
+                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
+                    let userDocID=documents[0].documentID
+                     
+                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
+                    
+                        userDataRef.whereField("receiver", isEqualTo: user).getDocuments { (querySnapshot, error) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else if let documents = querySnapshot?.documents, !documents.isEmpty {
+    //                        conversation already exist
+                            let chatID=documents[0].documentID
+                            
+                            let user=userDetails(userDataId: userDocID, receiverChatId: chatID,msgDocid: "")
+                            completion(user,nil)
+                            
+                            
+                        }else{
+//                            create new conversation
+                            let newChatRef=self.db.collection(K.Fstore.dataCollectionName)
+                                .document(userDocID).collection(K.Fstore.ChatsCollectionName).document()
+                            newChatRef.setData(["receiver":user]){
+                                error in
+                                if let error = error {
+                                    completion(nil, error)
+                                } else {
+                                    // Retrieve the conversation ID
+                                    let chatId = newChatRef.documentID
+                                    let user=userDetails(userDataId: userDocID, receiverChatId: chatId,msgDocid: "")
+                                    completion(user, nil)
+                                }
+                            }
+                                
+                        }
+                    }
+                }else{
+                    print("something went wrong while trying to access the chat.")
+                    completion(nil,nil)
+                }
+            }
+
+        }
+    }
+    
     func createChat(completion: @escaping (userDetails?, Error?) -> Void) {
         let dataRef = db.collection(K.Fstore.dataCollectionName)
 
@@ -122,6 +180,41 @@ class messageViewController: UIViewController {
                     let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
                     
                         userDataRef.whereField("receiver", isEqualTo: self.receiver!).getDocuments { (querySnapshot, error) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else if let documents = querySnapshot?.documents, !documents.isEmpty {
+    //                        conversation already exist
+                            let chatID=documents[0].documentID
+                            let details=userDetails(userDataId: userDocID, receiverChatId: chatID, msgDocid: "")
+                            completion(details,nil)
+                        }else{
+                           print("something went wrong")
+                            completion(nil,nil)
+                        }
+                    }
+                }else{
+                    print("something went wrong while trying to access the chat.")
+                    completion(nil,nil)
+                }
+            }
+
+        }
+    }
+
+    func createChatForReceiver(completion: @escaping (userDetails?, Error?) -> Void) {
+        let dataRef = db.collection(K.Fstore.dataCollectionName)
+
+        if let user=Auth.auth().currentUser?.email{
+            dataRef.whereField("username", isEqualTo: receiver!).getDocuments {(querySnapshot, error) in
+                if let e=error{
+                    print(e.localizedDescription)
+                    completion(nil, error)
+                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
+                    let userDocID=documents[0].documentID
+                     
+                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
+                    
+                        userDataRef.whereField("receiver", isEqualTo: user).getDocuments { (querySnapshot, error) in
                         if let error = error {
                             print(error.localizedDescription)
                         } else if let documents = querySnapshot?.documents, !documents.isEmpty {
@@ -170,6 +263,7 @@ class messageViewController: UIViewController {
         }
   
         }
+    
 
  
     func loadMessages(){
@@ -209,6 +303,22 @@ class messageViewController: UIViewController {
                 self.messageTextField.text=nil
                 
                 createChat() { userDetails, error in
+                    if let error = error {
+                        print("Error creating conversation: \(error.localizedDescription)")
+                    } else if let userDetails = userDetails {
+                        //                            print("msgDoc created successfully! msgDoc ID: \(msgDocDetails.id)")
+                        
+                        self.addMessage(userDetails: userDetails, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
+                            if let error = error {
+                                print("Error adding message: \(error.localizedDescription)")
+                            } else if let message = message {
+                                print("Message added successfully! ")
+
+                            }
+                        }
+                    }
+                }
+                createChatForReceiver() { userDetails, error in
                     if let error = error {
                         print("Error creating conversation: \(error.localizedDescription)")
                     } else if let userDetails = userDetails {
