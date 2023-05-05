@@ -267,34 +267,55 @@ class messageViewController: UIViewController {
 
  
     func loadMessages(){
-        print("msg loaded")
-//        db.collection(K.Fstore.collectionName)
-//            .order(by: K.Fstore.dateFieldName)
-//            .addSnapshotListener{ QuerySnapshot, error in
-//            self.mesaages=[]
-//            if let e = error {
-//                print(e)
-//            }else{
-//                if let snapDocs=QuerySnapshot?.documents{
-//                    for doc in snapDocs{
-//                        let data = doc.data()
-//                        if let sender=data[K.Fstore.senderFieldName] as? String , let msg=data[K.Fstore.msgFieldName] as? String{
-//                            let newMsg=Message(sender: sender, body: msg )
-//                            self.mesaages.append(newMsg)
-//
-//                            DispatchQueue.main.async {
-//                                self.tableView.reloadData()
-//                                let indexPath=IndexPath(row: self.mesaages.count-1, section: 0)
-//                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
-//                            }
-//                        }
-//                        else{
-//                            print("problem here!!")
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        print("loading messages")
+        let dataRef = db.collection(K.Fstore.dataCollectionName)
+        if let user=Auth.auth().currentUser?.email{
+            dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
+                if let e=error{
+                    print(e.localizedDescription)
+                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
+                    let userDocID=documents[0].documentID
+                     
+                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
+                    
+                    userDataRef.whereField("receiver", isEqualTo: self.receiver!).getDocuments { (querySnapshot, error) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else if let documents = querySnapshot?.documents,!documents.isEmpty {
+                            let chatID=documents[0].documentID
+                            
+                            userDataRef.document(chatID).collection(K.Fstore.messagesCollectionName).order(by: "timestamp").addSnapshotListener{ QuerySnapshot, error in
+                                self.mesaages=[]
+                                if let e = error {
+                                    print(e)
+                                }else{
+                                    if let snapDocs=QuerySnapshot?.documents{
+                                        for doc in snapDocs{
+                                            let data = doc.data()
+                                            if let sender=data["sender"] as? String , let msg=data["content"] as? String, let timestamp=data["timestamp"]{
+                                                let newMsg=Message(sender: sender, content: msg, timestamp: 12.3)
+                                                self.mesaages.append(newMsg)
+
+                                                DispatchQueue.main.async {
+                                                    self.tableView.reloadData()
+                                                    let indexPath=IndexPath(row: self.mesaages.count-1, section: 0)
+                                                    self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                                                }
+                                            }
+                                            else{
+                                                print("problem here!!")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }else{
+                           print("empty_array")
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func sendButton(_ sender: UIButton) {
@@ -311,7 +332,7 @@ class messageViewController: UIViewController {
                         self.addMessage(userDetails: userDetails, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
                             if let error = error {
                                 print("Error adding message: \(error.localizedDescription)")
-                            } else if let message = message {
+                            } else if (message != nil) {
                                 print("Message added successfully! ")
 
                             }
@@ -327,9 +348,6 @@ class messageViewController: UIViewController {
                         self.addMessage(userDetails: userDetails, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
                             if let error = error {
                                 print("Error adding message: \(error.localizedDescription)")
-                            } else if let message = message {
-                                print("Message added successfully! ")
-
                             }
                         }
                     }
