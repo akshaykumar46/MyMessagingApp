@@ -19,37 +19,33 @@ class messageViewController: UIViewController {
     
     let db = Firestore.firestore()
     
-    
-    struct Conversation {
-        let id: String
-        let participants: [String]
-    }
-    
     struct userDetails{
-        let userDataId:String
-        let receiverChatId:String
-        let msgDocid:String
+        var userDataId:String?
+        var userChatID:String?
+        var msgDocid:String?
     }
-
+    var user_details:userDetails?
+    var receiver_details:userDetails?
+    
     var mesaages:[Message]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
             self.setupConversation() { userDetails, error in
                 if let error = error {
                     print("Error creating conversation: \(error.localizedDescription)")
                 } else if let userDetail = userDetails {
-                    print("Conversation created successfully!")
-   
+                    self.user_details=userDetail
                 }
             }
+            
+      
         self.setupConversationForReceiver(){ userDetails, error in
             if let error = error {
                 print("Error creating conversation: \(error.localizedDescription)")
             } else if let userDetail = userDetails {
-                print("Conversation created successfully!")
-
+                self.receiver_details=userDetail
             }
         }
         messageTextField.frame=CGRect(x: messageTextField.frame.origin.x, y: messageTextField.frame.origin.y, width: messageTextField.frame.size.width, height: 100)
@@ -59,6 +55,7 @@ class messageViewController: UIViewController {
         loadMessages()
         title=receiver!
         
+        
 //        navigationItem.hidesBackButton=true
         tableView.register(UINib(nibName: K.NibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         
@@ -66,7 +63,7 @@ class messageViewController: UIViewController {
     
     
     func setupConversation(completion: @escaping (userDetails?, Error?) -> Void){
-       
+// getting userDocID
         let dataRef=db.collection(K.Fstore.dataCollectionName)
         if let user=Auth.auth().currentUser?.email{
             dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
@@ -85,7 +82,7 @@ class messageViewController: UIViewController {
     //                        conversation already exist
                             let chatID=documents[0].documentID
                             
-                            let user=userDetails(userDataId: userDocID, receiverChatId: chatID,msgDocid: "")
+                            let user=userDetails(userDataId: userDocID, userChatID: chatID,msgDocid: "")
                             completion(user,nil)
                             
                             
@@ -99,7 +96,7 @@ class messageViewController: UIViewController {
                                 } else {
                                     // Retrieve the conversation ID
                                     let chatId = newChatRef.documentID
-                                    let user=userDetails(userDataId: userDocID, receiverChatId: chatId,msgDocid: "")
+                                    let user=userDetails(userDataId: userDocID, userChatID: chatId,msgDocid: "")
                                     completion(user, nil)
                                 }
                             }
@@ -126,7 +123,9 @@ class messageViewController: UIViewController {
                 }else if let documents = querySnapshot?.documents,!documents.isEmpty{
                     let userDocID=documents[0].documentID
                      
-                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
+                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName)
+                        .document(userDocID)
+                        .collection(K.Fstore.ChatsCollectionName)
                     
                         userDataRef.whereField("receiver", isEqualTo: user).getDocuments { (querySnapshot, error) in
                         if let error = error {
@@ -135,7 +134,7 @@ class messageViewController: UIViewController {
     //                        conversation already exist
                             let chatID=documents[0].documentID
                             
-                            let user=userDetails(userDataId: userDocID, receiverChatId: chatID,msgDocid: "")
+                            let user=userDetails(userDataId: userDocID, userChatID: chatID,msgDocid: "")
                             completion(user,nil)
                             
                             
@@ -150,81 +149,11 @@ class messageViewController: UIViewController {
                                 } else {
                                     // Retrieve the conversation ID
                                     let chatId = newChatRef.documentID
-                                    let user=userDetails(userDataId: userDocID, receiverChatId: chatId,msgDocid: "")
+                                    let user=userDetails(userDataId: userDocID, userChatID: chatId,msgDocid: "")
                                     completion(user, nil)
                                 }
                             }
                                 
-                        }
-                    }
-                }else{
-                    print("something went wrong while trying to access the chat.")
-                    completion(nil,nil)
-                }
-            }
-
-        }
-    }
-    
-    func createChat(completion: @escaping (userDetails?, Error?) -> Void) {
-        let dataRef = db.collection(K.Fstore.dataCollectionName)
-
-        if let user=Auth.auth().currentUser?.email{
-            dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
-                if let e=error{
-                    print(e.localizedDescription)
-                    completion(nil, error)
-                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
-                    let userDocID=documents[0].documentID
-                     
-                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
-                    
-                        userDataRef.whereField("receiver", isEqualTo: self.receiver!).getDocuments { (querySnapshot, error) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        } else if let documents = querySnapshot?.documents, !documents.isEmpty {
-    //                        conversation already exist
-                            let chatID=documents[0].documentID
-                            let details=userDetails(userDataId: userDocID, receiverChatId: chatID, msgDocid: "")
-                            completion(details,nil)
-                        }else{
-                           print("something went wrong")
-                            completion(nil,nil)
-                        }
-                    }
-                }else{
-                    print("something went wrong while trying to access the chat.")
-                    completion(nil,nil)
-                }
-            }
-
-        }
-    }
-
-    func createChatForReceiver(completion: @escaping (userDetails?, Error?) -> Void) {
-        let dataRef = db.collection(K.Fstore.dataCollectionName)
-
-        if let user=Auth.auth().currentUser?.email{
-            dataRef.whereField("username", isEqualTo: receiver!).getDocuments {(querySnapshot, error) in
-                if let e=error{
-                    print(e.localizedDescription)
-                    completion(nil, error)
-                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
-                    let userDocID=documents[0].documentID
-                     
-                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
-                    
-                        userDataRef.whereField("receiver", isEqualTo: user).getDocuments { (querySnapshot, error) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        } else if let documents = querySnapshot?.documents, !documents.isEmpty {
-    //                        conversation already exist
-                            let chatID=documents[0].documentID
-                            let details=userDetails(userDataId: userDocID, receiverChatId: chatID, msgDocid: "")
-                            completion(details,nil)
-                        }else{
-                           print("something went wrong")
-                            completion(nil,nil)
                         }
                     }
                 }else{
@@ -246,9 +175,9 @@ class messageViewController: UIViewController {
             "timestamp": timestamp
         ]
         let msgRef=db.collection(K.Fstore.dataCollectionName)
-            .document(userDetails.userDataId)
+            .document(userDetails.userDataId!)
             .collection(K.Fstore.ChatsCollectionName)
-            .document(userDetails.receiverChatId)
+            .document(userDetails.userChatID!)
 
         msgRef.collection(K.Fstore.messagesCollectionName)
             .addDocument(data: msgData){ error in
@@ -270,51 +199,51 @@ class messageViewController: UIViewController {
         print("loading messages")
         let dataRef = db.collection(K.Fstore.dataCollectionName)
         if let user=Auth.auth().currentUser?.email{
-            dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
-                if let e=error{
-                    print(e.localizedDescription)
-                }else if let documents = querySnapshot?.documents,!documents.isEmpty{
-                    let userDocID=documents[0].documentID
-                     
-                    let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
-                    
-                    userDataRef.whereField("receiver", isEqualTo: self.receiver!).getDocuments { (querySnapshot, error) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        } else if let documents = querySnapshot?.documents,!documents.isEmpty {
-                            let chatID=documents[0].documentID
-                            
-                            userDataRef.document(chatID).collection(K.Fstore.messagesCollectionName).order(by: "timestamp").addSnapshotListener{ QuerySnapshot, error in
-                                self.mesaages=[]
-                                if let e = error {
-                                    print(e)
-                                }else{
-                                    if let snapDocs=QuerySnapshot?.documents{
-                                        for doc in snapDocs{
-                                            let data = doc.data()
-                                            if let sender=data["sender"] as? String , let msg=data["content"] as? String, let timestamp=data["timestamp"]{
-                                                let newMsg=Message(sender: sender, content: msg, timestamp: 12.3)
-                                                self.mesaages.append(newMsg)
-
-                                                DispatchQueue.main.async {
-                                                    self.tableView.reloadData()
-                                                    let indexPath=IndexPath(row: self.mesaages.count-1, section: 0)
-                                                    self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+            
+           
+                dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
+                    if let e=error{
+                        print(e.localizedDescription)
+                    }else if let documents = querySnapshot?.documents,!documents.isEmpty{
+                        let userDocID=documents[0].documentID
+                        
+                        let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
+                        
+                        userDataRef.whereField("receiver", isEqualTo: self.receiver!).getDocuments { (querySnapshot, error) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else if let documents = querySnapshot?.documents,!documents.isEmpty {
+                                let chatID=documents[0].documentID
+                                
+                                userDataRef.document(chatID).collection(K.Fstore.messagesCollectionName).order(by: "timestamp").addSnapshotListener{ QuerySnapshot, error in
+                                    self.mesaages=[]
+                                    if let e = error {
+                                        print(e)
+                                    }else{
+                                        if let snapDocs=QuerySnapshot?.documents{
+                                            for doc in snapDocs{
+                                                let data = doc.data()
+                                                if let sender=data["sender"] as? String , let msg=data["content"] as? String, let timestamp=data["timestamp"]{
+                                                    let newMsg=Message(sender: sender, content: msg, timestamp: 12.3)
+                                                    self.mesaages.append(newMsg)
+                                                    
+                                                    DispatchQueue.main.async {
+                                                        self.tableView.reloadData()
+                                                        let indexPath=IndexPath(row: self.mesaages.count-1, section: 0)
+                                                        self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                                                    }
                                                 }
-                                            }
-                                            else{
-                                                print("problem here!!")
+                                                else{
+                                                    print("problem here!!")
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }else{
-                           print("empty_array")
                         }
                     }
                 }
-            }
         }
     }
     
@@ -322,43 +251,25 @@ class messageViewController: UIViewController {
         if let msg=messageTextField.text, let sender=Auth.auth().currentUser?.email {
             if msg.count>0{
                 self.messageTextField.text=nil
-                
-                createChat() { userDetails, error in
-                    if let error = error {
-                        print("Error creating conversation: \(error.localizedDescription)")
-                    } else if let userDetails = userDetails {
-                        //                            print("msgDoc created successfully! msgDoc ID: \(msgDocDetails.id)")
-                        
-                        self.addMessage(userDetails: userDetails, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
-                            if let error = error {
-                                print("Error adding message: \(error.localizedDescription)")
-                            } else if (message != nil) {
-                                print("Message added successfully! ")
-
-                            }
+                if let user_details=user_details{
+                    self.addMessage(userDetails: user_details, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
+                        if let error = error {
+                            print("Error adding message: \(error.localizedDescription)")
+                        } else if (message != nil) {
+                            print("Message added! ")
                         }
                     }
                 }
-                createChatForReceiver() { userDetails, error in
-                    if let error = error {
-                        print("Error creating conversation: \(error.localizedDescription)")
-                    } else if let userDetails = userDetails {
-                        //                            print("msgDoc created successfully! msgDoc ID: \(msgDocDetails.id)")
-                        
-                        self.addMessage(userDetails: userDetails, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
-                            if let error = error {
-                                print("Error adding message: \(error.localizedDescription)")
-                            }
+                if let receiver_details=receiver_details{
+                    self.addMessage(userDetails: receiver_details, sender: sender, content: msg, timestamp: Date().timeIntervalSince1970) { message, error in
+                        if let error = error {
+                            print("Error adding message: \(error.localizedDescription)")
                         }
                     }
                 }
             }
-                else{
-                    print("empty message!")
-                }
-            }
-            
         }
+    }
     
      
     
@@ -368,7 +279,7 @@ class messageViewController: UIViewController {
             try firebaseAuth.signOut()
             navigationController?.popToRootViewController(animated: true)
         } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError.localizedDescription)
         }
     }
 }
