@@ -49,6 +49,20 @@ class ChatViewController: UIViewController {
         
         
     }
+    
+    @IBAction func logoutButton(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            navigationController?.popToRootViewController(animated: true)
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError.localizedDescription)
+        }
+    }
+    
+    
+    
+    
 //    func loadChats(){
 //        db.collection(K.chats.chatsCollection)
 //    }

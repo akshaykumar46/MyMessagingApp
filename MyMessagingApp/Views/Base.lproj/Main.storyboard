@@ -237,7 +237,13 @@
                             <constraint firstAttribute="bottom" secondItem="5ij-ae-fgH" secondAttribute="bottom" id="xPg-oZ-tzB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="17p-CS-7NF"/>
+                    <navigationItem key="navigationItem" id="17p-CS-7NF">
+                        <barButtonItem key="rightBarButtonItem" title="logout" id="NRL-XT-5rI" userLabel="logout">
+                            <connections>
+                                <action selector="logoutButton:" destination="jXW-tQ-lRT" id="N2h-gx-LmM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="newChatButton" destination="OBw-Jr-MEk" id="oXP-QY-8La"/>
                         <outlet property="tableView" destination="shU-yd-eaL" id="MBD-AS-Jzm"/>
@@ -281,7 +287,13 @@
                             <constraint firstItem="9f2-QL-8oY" firstAttribute="leading" secondItem="fs8-ZC-T4h" secondAttribute="leading" id="kXz-EP-p2d"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="uMO-iW-AKl"/>
+                    <navigationItem key="navigationItem" id="uMO-iW-AKl">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="1hM-Zg-wPL">
+                            <connections>
+                                <action selector="cancelButton:" destination="SVl-ig-FAf" id="9OE-06-rqt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="cJr-ou-nks" id="YyJ-dj-fMg"/>
                         <segue destination="QTK-5g-ddd" kind="show" identifier="newChatSegue" id="jJj-hc-tvq"/>

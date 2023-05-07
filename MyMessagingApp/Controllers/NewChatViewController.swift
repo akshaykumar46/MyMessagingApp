@@ -27,7 +27,7 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
         
         loadUsers()
         
-                
+        navigationItem.hidesBackButton=true
         
         title="Start a new Chat"
         tableView.dataSource=self
@@ -50,8 +50,6 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
                             self.users.append(usr)
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
-//                                let indexPath=IndexPath(row: self.users.count-1, section: 0)
-//                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
                             }
                         }
                     }
@@ -63,6 +61,9 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //      print("yes chick")
 //        view profile pic code will be here
+    }
+    @IBAction func cancelButton(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.newChatToChatSegue {
