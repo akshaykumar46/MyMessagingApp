@@ -66,7 +66,8 @@ class messageViewController: UIViewController {
 // getting userDocID
         let dataRef=db.collection(K.Fstore.dataCollectionName)
         if let user=Auth.auth().currentUser?.email{
-            dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
+            dataRef.whereField("username", isEqualTo: user)
+                .getDocuments {(querySnapshot, error) in
                 if let e=error{
                     print(e.localizedDescription)
                     completion(nil, error)
@@ -200,7 +201,8 @@ class messageViewController: UIViewController {
         if let user=Auth.auth().currentUser?.email{
             
            
-                dataRef.whereField("username", isEqualTo: user).getDocuments {(querySnapshot, error) in
+                dataRef.whereField("username", isEqualTo: user)
+                .getDocuments {(querySnapshot, error) in
                     if let e=error{
                         print(e.localizedDescription)
                     }else if let documents = querySnapshot?.documents,!documents.isEmpty{
@@ -208,7 +210,7 @@ class messageViewController: UIViewController {
                         
                         let userDataRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
                         
-                        userDataRef.whereField("receiver", isEqualTo: self.receiver!).getDocuments { (querySnapshot, error) in
+                        userDataRef.whereField("receiver", isEqualTo: self.receiver!).addSnapshotListener { (querySnapshot, error) in
                             if let error = error {
                                 print(error.localizedDescription)
                             } else if let documents = querySnapshot?.documents,!documents.isEmpty {

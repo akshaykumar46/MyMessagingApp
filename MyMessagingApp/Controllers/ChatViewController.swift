@@ -27,7 +27,7 @@ class ChatViewController: UIViewController,UITableViewDelegate {
         
         tableView.dataSource=self
         tableView.delegate=self
-
+        title=K.title
         tableView.register(UINib(nibName: K.chats.NibName, bundle: nil), forCellReuseIdentifier: K.chats.cellIdentifier)
     }
 
@@ -62,10 +62,11 @@ class ChatViewController: UIViewController,UITableViewDelegate {
                     
                     let chatsRef=self.db.collection(K.Fstore.dataCollectionName).document(userDocID).collection(K.Fstore.ChatsCollectionName)
                     
-                    chatsRef.getDocuments{(querySnap, error) in
+                    chatsRef.addSnapshotListener{(querySnap, error) in
                         if let e=error{
                             print(e.localizedDescription)
                         }else if let docs = querySnap?.documents,!docs.isEmpty{
+                            self.chats=[]
                             for doc in docs{
                                 let data = doc.data()
                                 
