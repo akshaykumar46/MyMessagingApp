@@ -57,7 +57,7 @@ class messageViewController: UIViewController {
         
         
 //        navigationItem.hidesBackButton=true
-        tableView.register(UINib(nibName: K.NibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+        tableView.register(UINib(nibName: K.NibName, bundle: nil), forCellReuseIdentifier: K.msgCellIdentifier)
         
     }
     
@@ -290,7 +290,7 @@ extension messageViewController:UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let msg = mesaages[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.msgCellIdentifier, for: indexPath) as! MessageCell
         cell.label.text=msg.content
         if msg.sender==Auth.auth().currentUser?.email{
             cell.leftImageView.isHidden=true

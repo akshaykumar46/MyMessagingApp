@@ -12,7 +12,7 @@ struct K{
     static let usernames="usernames"
     static let registerSegue="registerToChatSegue"
     static let loginSegue="loginToChatSegue"
-    static let cellIdentifier="messageCell"
+    static let msgCellIdentifier="messageCell"
     static let NibName="MessageCell" //name of the message cell swift file
     static let title = "Appy Aapy"
     struct Fstore{

@@ -45,12 +45,15 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
                 if let snapDocs=QuerySnapshot?.documents{
                     for doc in snapDocs{
                         let data = doc.data()
-                        if let username=data[K.usernames] as? String{
-                            let usr=Chats(name: username)
-                            self.users.append(usr)
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
+                        if let username=data[K.usernames] as? String {
+                            if username != Auth.auth().currentUser?.email{
+                                let usr=Chats(name: username)
+                                self.users.append(usr)
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                }
                             }
+                            
                         }
                     }
                 }
