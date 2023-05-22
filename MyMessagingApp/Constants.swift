@@ -8,6 +8,7 @@
 import Foundation
 struct K{
     static let newChatToChatSegue="newChatSegue"
+    static let chatsToMessageSegue="chatMessageSegue"
     static let users = "Users"
     static let usernames="usernames"
     static let registerSegue="registerToChatSegue"

@@ -61,19 +61,28 @@ class NewChatViewController: UIViewController,UITableViewDelegate{
         }
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//      print("yes chick")
+
 //        view profile pic code will be here
+//        performSegue(withIdentifier: K.newChatToChatSegue, sender: self)
+        if let cell = tableView.cellForRow(at: indexPath) as? ChatCell {
+            performSegue(withIdentifier: K.newChatToChatSegue, sender: cell)
+            
+            }
     }
+    
     @IBAction func cancelButton(_ sender: Any) {
+        
         navigationController?.popViewController(animated: true)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == K.newChatToChatSegue {
                 if let destinationVC = segue.destination as? messageViewController {
                     let buttonName = sender as? ChatCell
-                        destinationVC.receiver=buttonName?.profileName.titleLabel?.text!
-                    
+                    destinationVC.receiver=buttonName?.profileName.text
+
                 }
             }
         }
@@ -84,7 +93,8 @@ extension NewChatViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let username=users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: K.chats.cellIdentifier, for: indexPath) as! ChatCell
-        cell.profileName.setTitle(username.name, for: .normal)
+//        cell.profileName.setTitle(username.name, for: .normal)
+        cell.profileName.text=username.name
         cell.viewController=self
         return cell
     }

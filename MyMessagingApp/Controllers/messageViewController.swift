@@ -16,6 +16,7 @@ class messageViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextField: UITextView!
+    @IBOutlet weak var backButton: UIBarButtonItem!
     
     let db = Firestore.firestore()
     
@@ -54,7 +55,6 @@ class messageViewController: UIViewController {
         tableView.dataSource=self
         loadMessages()
         title=receiver!
-        
         
 //        navigationItem.hidesBackButton=true
         tableView.register(UINib(nibName: K.NibName, bundle: nil), forCellReuseIdentifier: K.msgCellIdentifier)
@@ -194,7 +194,6 @@ class messageViewController: UIViewController {
         }
     
 
- 
     func loadMessages(){
         print("loading messages")
         let dataRef = db.collection(K.Fstore.dataCollectionName)
@@ -272,6 +271,15 @@ class messageViewController: UIViewController {
     }
     
      
+    @IBAction func backButtonPressed(_ sender: Any) {
+        
+        for controller in self.navigationController!.viewControllers as Array {
+            if controller.isKind(of: ChatViewController.self) {
+                self.navigationController!.popToViewController(controller, animated: true)
+                break
+            }
+        }
+    }
     
     @IBAction func logoutButton(_ sender: Any) {
         let firebaseAuth = Auth.auth()
@@ -282,7 +290,11 @@ class messageViewController: UIViewController {
             print("Error signing out: %@", signOutError.localizedDescription)
         }
     }
+    
+    
 }
+
+
 extension messageViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mesaages.count

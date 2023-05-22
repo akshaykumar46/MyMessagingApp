@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,24 +34,19 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naP-Jh-mxZ" userLabel="chatBubble">
                                         <rect key="frame" x="50" y="0.0" width="292" height="341.33333333333331"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nR-gO-dRs" userLabel="profileName">
-                                                <rect key="frame" x="0.0" y="0.0" width="292" height="341.33333333333331"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Button">
-                                                    <fontDescription key="titleFontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="15"/>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="profileSelected:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LDZ-QN-T4h"/>
-                                                </connections>
-                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBn-1S-c0U" userLabel="profileName">
+                                                <rect key="frame" x="10" y="10" width="272" height="321.33333333333331"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="4nR-gO-dRs" secondAttribute="trailing" id="9UD-QF-SEc"/>
-                                            <constraint firstAttribute="bottom" secondItem="4nR-gO-dRs" secondAttribute="bottom" id="lJ9-ES-TT4"/>
-                                            <constraint firstItem="4nR-gO-dRs" firstAttribute="leading" secondItem="naP-Jh-mxZ" secondAttribute="leading" id="qLi-lk-rYW"/>
-                                            <constraint firstItem="4nR-gO-dRs" firstAttribute="top" secondItem="naP-Jh-mxZ" secondAttribute="top" id="tgl-ig-tgX"/>
+                                            <constraint firstAttribute="trailing" secondItem="hBn-1S-c0U" secondAttribute="trailing" constant="10" id="6qT-CL-6XA"/>
+                                            <constraint firstItem="hBn-1S-c0U" firstAttribute="top" secondItem="naP-Jh-mxZ" secondAttribute="top" constant="10" id="9J4-xr-cTF"/>
+                                            <constraint firstItem="hBn-1S-c0U" firstAttribute="leading" secondItem="naP-Jh-mxZ" secondAttribute="leading" constant="10" id="JsO-Ab-qek"/>
+                                            <constraint firstAttribute="bottom" secondItem="hBn-1S-c0U" secondAttribute="bottom" constant="10" id="qIS-Sx-6Ms"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -75,7 +70,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="profileName" destination="4nR-gO-dRs" id="dFo-kw-uT2"/>
+                <outlet property="profileName" destination="hBn-1S-c0U" id="w0c-w7-cHt"/>
                 <outlet property="profilePhoto" destination="gTm-hw-uif" id="coV-9y-aO8"/>
             </connections>
             <point key="canvasLocation" x="124" y="104"/>

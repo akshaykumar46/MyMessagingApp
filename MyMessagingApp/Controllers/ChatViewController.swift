@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController,UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newChatButton: UIButton!
@@ -26,6 +26,7 @@ class ChatViewController: UIViewController {
         loadChats()
         
         tableView.dataSource=self
+        tableView.delegate=self
 
         tableView.register(UINib(nibName: K.chats.NibName, bundle: nil), forCellReuseIdentifier: K.chats.cellIdentifier)
     }
@@ -89,7 +90,23 @@ class ChatViewController: UIViewController {
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        if let cell = tableView.cellForRow(at: indexPath) as? ChatCell {
+            performSegue(withIdentifier: K.chatsToMessageSegue, sender: cell)
+            }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == K.chatsToMessageSegue {
+                if let destinationVC = segue.destination as? messageViewController {
+                    let buttonName = sender as? ChatCell
+                    destinationVC.receiver=buttonName?.profileName.text
+
+                }
+            }
+        }
     
 
 }
@@ -102,7 +119,7 @@ extension ChatViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let msg = chats[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: K.chats.cellIdentifier, for: indexPath) as! ChatCell
-        cell.profileName.titleLabel?.text=msg.name
+        cell.profileName.text=msg.name
         return cell
     }
  

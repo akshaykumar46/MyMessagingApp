@@ -247,6 +247,7 @@
                     <connections>
                         <outlet property="newChatButton" destination="OBw-Jr-MEk" id="oXP-QY-8La"/>
                         <outlet property="tableView" destination="shU-yd-eaL" id="MBD-AS-Jzm"/>
+                        <segue destination="QTK-5g-ddd" kind="show" identifier="chatMessageSegue" id="afA-Jw-LRN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cD1-b6-oUG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -301,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4v-dn-dYf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4170" y="-191"/>
+            <point key="canvasLocation" x="4194" y="246"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="h8z-Gp-qg6">
@@ -486,13 +487,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FkV-1G-sgr">
-                        <barButtonItem key="rightBarButtonItem" title="logout" id="hvd-N9-aQt">
+                        <barButtonItem key="leftBarButtonItem" title="back" image="chevron.backward" catalog="system" id="4kX-ga-Uoh">
                             <connections>
-                                <action selector="logoutButton:" destination="QTK-5g-ddd" id="V8y-oC-H5v"/>
+                                <action selector="backButtonPressed:" destination="QTK-5g-ddd" id="pOC-v5-x9I"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="4kX-ga-Uoh" id="5EK-72-sdo"/>
                         <outlet property="messageTextField" destination="H23-bo-XMI" id="iql-Uj-Nme"/>
                         <outlet property="tableView" destination="Grk-Vw-89T" id="Nuc-UX-3IR"/>
                     </connections>
@@ -521,10 +523,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="afA-Jw-LRN"/>
         <segue reference="Xmg-1D-r5H"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="app-icon" width="203" height="136.33332824707031"/>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
